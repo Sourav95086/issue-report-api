@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Report Civic Issue</title>
+</head>
+<body>
+    <h2>Report Civic Issue</h2>
+    <form id="issueForm" enctype="multipart/form-data">
+        <label>Firebase ID:</label><br>
+        <input type="text" name="firebaseId" required><br><br>
+
+        <label>Category:</label><br>
+        <input type="text" name="category" required><br><br>
+
+        <label>Description:</label><br>
+        <textarea name="description" rows="4" cols="50"></textarea><br><br>
+
+        <label>City:</label><br>
+        <input type="text" name="city"><br><br>
+
+        <label>State:</label><br>
+        <input type="text" name="state"><br><br>
+
+        <label>Country:</label><br>
+        <input type="text" name="country"><br><br>
+
+        <label>Locality:</label><br>
+        <input type="text" name="locality"><br><br>
+
+        <label>Upload Image:</label><br>
+        <input type="file" name="image" accept="image/*" required><br><br>
+
+        <button type="submit">Submit Issue</button>
+    </form>
+
+    <h3>Response:</h3>
+    <pre id="response"></pre>
+
+    <script>
+        const form = document.getElementById('issueForm');
+        const responsePre = document.getElementById('response');
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const formData = new FormData(form);
+
+            try {
+                const res = await fetch('http://localhost:1000/ReportIssue', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const data = await res.json();
+                responsePre.textContent = JSON.stringify(data, null, 2);
+            } catch (err) {
+                responsePre.textContent = 'Error: ' + err.message;
+            }
+        });
+    </script>
+</body>
+</html>
