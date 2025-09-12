@@ -10,6 +10,8 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "cores": "^0.8.5",
+    "cors": "^2.8.5",
     "express": "^5.1.0",
     "form-data": "^4.0.4",
     "formidable": "^3.5.4",
