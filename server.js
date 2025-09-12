@@ -18,10 +18,11 @@ const SUPABASE_BUCKET = "issues";
 
 // MySQL connection
 const database = mysql.createConnection({
-  user: "root",
-  host: "localhost",
-  database: "civic",
-  password: "Sourav(890)"
+        user:"sql12798326",
+        host:"sql12.freesqldatabase.com",
+        database:"sql12798326",
+        password:"MIBIVNPB4G",
+        port:3306
 });
 
 database.connect(err => {
