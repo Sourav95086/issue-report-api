@@ -46,7 +46,7 @@
             const formData = new FormData(form);
 
             try {
-                const res = await fetch('https://issue-report-api-1.onrender.com/ReportIssue', {
+                const res = await fetch('http://localhost:1000/ReportIssue', {
                     method: 'POST',
                     body: formData
                 });

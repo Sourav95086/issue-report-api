@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Issues Table</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f5f5;
+      padding: 20px;
+    }
+    h1 {
+      text-align: center;
+    }
+    #loadBtn {
+      display: block;
+      margin: 20px auto;
+      padding: 10px 20px;
+      background: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    #loadBtn:hover {
+      background: #0056b3;
+    }
+    table {
+      width: 90%;
+      margin: 20px auto;
+      border-collapse: collapse;
+      background: #fff;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    th, td {
+      padding: 12px 15px;
+      border: 1px solid #ddd;
+      text-align: left;
+    }
+    th {
+      background: #007bff;
+      color: #fff;
+    }
+    #message {
+      text-align: center;
+      font-style: italic;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Civic Issues – Odisha / Bhubaneswar</h1>
+  <button id="loadBtn">Fetch Issues</button>
+  <div id="message">Click the button to load issues…</div>
+  <table id="issuesTable"></table>
+
+  <script>
+    document.getElementById('loadBtn').addEventListener('click', async () => {
+      const msg = document.getElementById('message');
+      const table = document.getElementById('issuesTable');
+      table.innerHTML = '';
+      msg.textContent = 'Loading…';
+
+      try {
+        const res = await fetch('https://fetch-issue-1.onrender.com/fetchissues', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: new URLSearchParams({ state: 'odisha', city: 'bhubaneswar' })
+        });
+
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const data = await res.json();
+
+        // If data is an array of objects
+        if (Array.isArray(data) && data.length > 0) {
+          msg.textContent = `Total Issues: ${data.length}`;
+          
+          // Create table header
+          const columns = Object.keys(data[0]); // grab keys from first object
+          const thead = document.createElement('thead');
+          const headRow = document.createElement('tr');
+          columns.forEach(col => {
+            const th = document.createElement('th');
+            th.textContent = col;
+            headRow.appendChild(th);
+          });
+          thead.appendChild(headRow);
+          table.appendChild(thead);
+
+          // Create table body
+          const tbody = document.createElement('tbody');
+          data.forEach(item => {
+            const row = document.createElement('tr');
+            columns.forEach(col => {
+              const td = document.createElement('td');
+              td.textContent = item[col];
+              row.appendChild(td);
+            });
+            tbody.appendChild(row);
+          });
+          table.appendChild(tbody);
+
+        } else {
+          msg.textContent = 'No issues found or unexpected response.';
+        }
+      } catch (err) {
+        msg.textContent = 'Error: ' + err.message;
+      }
+    });
+  </script>
+</body>
+</html>
