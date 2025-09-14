@@ -18,7 +18,7 @@ app.use(express.json());
 //  Supabase Config
 // -----------------------
 const SUPABASE_URL    = "https://hicytuqdzaoqcgfvlssv.supabase.co";
-const SUPABASE_KEY    = "YOUR_SUPABASE_SERVICE_ROLE_KEY"; // ← put in .env in production!
+const SUPABASE_KEY    = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhpY3l0dXFkemFvcWNnZnZsc3N2Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc1NjkyMTY1MSwiZXhwIjoyMDcyNDk3NjUxfQ.5A_rpKjAEeR0zQ71qHHXjvLnKU3Y_vscewiFd_GpYlU"; // ← put in .env in production!
 const SUPABASE_BUCKET = "issues";
 
 // -----------------------
